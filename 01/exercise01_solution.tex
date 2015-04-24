@@ -1,0 +1,50 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[a4paper, margin=1.3in]{geometry}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+
+\newcommand{\sheetNr}{1}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Game Theory}
+\rhead{Exercise Sheet \sheetNr}
+\lfoot{Tarek Saier, \today}
+\rfoot{Page \thepage\ of \pageref{lastpage}}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0.3pt}
+\setlength\parindent{0pt}
+\newcommand{\h}[0]{\text{--}}
+
+\begin{document}
+\begin{center}
+\Huge{\textbf{Game Theory}}\\
+\LARGE{\textbf{Exercise Sheet \sheetNr}}
+\end{center}
+\vspace{2cm}
+\begin{tabular}{ll}
+Date: & \today\\
+Student: & Tarek Saier
+\end{tabular}
+
+\section*{Exercise 1.1}
+(a)\\
+$G=\langle N, (A_i), (u_i)\rangle$ with\\
+$N=\{1,2\}$\\
+$A_1=A_2=\{u,l,m\}$\hphantom{tabtab}//Note: $u=$upper path, $l=$lower path\\
+\hphantom{tabtabtabtabtabtabtabtabtabtabta}$m$=path using vertical arrow in the middle\\
+
+\begin{tabular}{c|c|c|c|}
+  & u & l & m\\
+\hline
+u & 2.2 , 2.2 & , & ,\\
+\hline
+l & , & 2.2 , 2.2 & ,\\
+\hline
+m & , & , & 2.1 , 2.1\\
+\hline
+\end{tabular}\\
+
+\label{lastpage}
+\end{document}
