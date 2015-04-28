@@ -29,25 +29,25 @@ Student: & Tarek Saier
 \end{tabular}
 
 \section*{Exercise 1.1}
-(a)\\
+\textbf{(a)}\\
 $G=\langle N, (A_i), (u_i)\rangle$ with\\
 $N=\{1,2\}$\\
 $A_1=A_2=\{u,l,m\}$\hphantom{tabtab}//Note: $u=$upper path, $l=$lower path\\
-\hphantom{tabtabtabtabtabtabtabtabtabtabta}$m$=path using vertical arrow in the middle\\
+\hphantom{tabtabtabtabtabtabtabtabtabtabta}$m$=path using vertical edge in the middle\\
 
 \begin{tabular}{c|c|c|c|}
-  & u & l & m\\
+  & $u$ & $l$ & $m$\\
 \hline
-u & 2.2 , 2.2 & 1.7 , 1.7 & 2.2 , 1.6\\
+$u$ & -2.2 , -2.2 & -1.7 , -1.7 & -2.2 , -1.6\\
 \hline
-l & 1.7 , 1.7 & 2.2 , 2.2 & 2.2 , 1.6\\
+$l$ & -1.7 , -1.7 & -2.2 , -2.2 & -2.2 , -1.6\\
 \hline
-m & 1.6 , 2.2 & 1.6 , 2.2 & 2.1 , 2.1\\
+$m$ & -1.6 , -2.2 & -1.6 , -2.2 & -2.1 , -2.1\\
 \hline
 \end{tabular}\\
 \\
 \\
-sticktly dominated actions:\\
+stricktly dominated actions:\\
 $u_1(a_{-1},m_1)>u_1(a_{-1},l_1)$\\
 $u_2(a_{-2},m_2)>u_2(a_{-2},l_2)$\\
 $u_1(a_{-1},m_1)>u_1(a_{-1},u_1)$\\
@@ -59,9 +59,17 @@ $u_2(a_{-2},m_2)\ge u_2(a_{-2},l_2)$\\
 $u_1(a_{-1},m_1)\ge u_1(a_{-1},u_1)$\\
 $u_2(a_{-2},m_2)\ge u_2(a_{-2},u_2)$\\
 \\
-TODO: Nash equilibria\\
+Nash equilibria: $(m,m)$\\
 \\
-(b)
+\textbf{(b)} A notable difference to the lecture example is that fact that the main diagonal of the matrix does not have the same values for all action sets. If both players choose $m$ they gain a higher utility compared to both choosing $u$ or $l$.\\
+In both variants adding more players to the game would increase the benefit of taking a $\frac{n_i}{n}$-path alone whilst the rest of the players take the respective other path.
+\newpage
+\section*{Exercise 1.2}
+\textbf{(a)} Nash equilibria: (yield,claim), (claim,yield)\\
+The game is \emph{not} strictly competitive, since $\forall a\in A: u_1(a)=-u_2(a)$ does not hold.\\
+\\
+\textbf{(b)} Nash equilibria: (landside,landside), (seaside,seaside)\\
+The game is different insofar, als choosing the \emph{same} action as the opponent is beneficial. For the claim-yield game it's the opposite: playing the action \emph{different} from the opponent's is beneficial.
 
 \label{lastpage}
 \end{document}
