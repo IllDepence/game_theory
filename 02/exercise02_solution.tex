@@ -1,0 +1,83 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[a4paper, margin=1.3in]{geometry}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+
+\newcommand{\sheetNr}{2}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Game Theory}
+\rhead{Exercise Sheet \sheetNr}
+\lfoot{Andreas Frorath, Tarek Saier, \today}
+\rfoot{Page \thepage\ of \pageref{lastpage}}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0.3pt}
+\setlength\parindent{0pt}
+\newcommand{\h}[0]{\text{--}}
+
+\begin{document}
+\begin{center}
+\Huge{\textbf{Game Theory}}\\
+\LARGE{\textbf{Exercise Sheet \sheetNr}}
+\end{center}
+\vspace{2cm}
+\begin{tabular}{ll}
+Date: & \today\\
+Students: & Andreas Frorath, Tarek Saier
+\end{tabular}
+
+\section*{Exercise 2.1}
+$G=\langle N, (A_i), (u_i)\rangle$ with\\
+$N=\{1,2\}$\\
+$A_i=\{Rock,Paper,Scissors,Lizard,Spock\}$\\
+and payoff matrix:\\
+\begin{tabular}{c|c|c|c|c|c|}
+  & $Rock$ & $Paper$ & $Scissors$ & $Lizard$ & $Spock$ \\
+\hline
+$Rock$ & 0 , 0 & -1 , 1 & 1 , -1 & 1 , -1 & -1 , 1 \\
+\hline
+$Paper$ & 1 , -1 & 0 , 0 & 1 , -1 & -1 , 1 & 1 , -1 \\
+\hline
+$Scissors$ & -1 , 1 & 1 , -1 & 0 , 0 & 1 , -1 & -1 , 1 \\
+\hline
+$Lizard$ & -1 , 1 & -1 , 1 & 1 , -1 & 0 , 0 & 1 , -1 \\
+\hline
+$Spock$ & 1 , -1 & -1 , 1 & 1 , -1 & -1 , 1 & 0 , 0 \\
+\hline
+\end{tabular}
+
+\section*{Exercise 2.2}
+\textbf{(a)}\\
+$d_2$ stictly dominates $a_2$, eliminating $a_2$ leaves us with:\\
+\begin{tabular}{c|c|c|c|}
+  & $b_2$ & $c_2$ & $d_2$ \\
+\hline
+$a_1$ & 2 , 7 & 1 , 4 & 0 , 3 \\
+\hline
+$b_1$ & 3 , 2 & 2 , 1 & 1 , 1 \\
+\hline
+$c_1$ & 2 , 2 & 1 , 5 & 6 , 1 \\
+\hline
+$d_1$ & 1 , 2 & 0 , 2 & 3 , 9 \\
+\hline
+\end{tabular}\\
+\\
+$b_1$ stictly dominates $a_1$, eliminating $a_1$ leaves us with:\\
+\begin{tabular}{c|c|c|c|}
+  & $b_2$ & $c_2$ & $d_2$ \\
+\hline
+$b_1$ & 3 , 2 & 2 , 1 & 1 , 1 \\
+\hline
+$c_1$ & 2 , 2 & 1 , 5 & 6 , 1 \\
+\hline
+$d_1$ & 1 , 2 & 0 , 2 & 3 , 9 \\
+\hline
+\end{tabular}\\
+\\
+\textbf{(b)} Set of Nash equilibra: $\{(b_1,b_2)\}$\\
+Player 1 should therefore play $b_1$.
+
+\label{lastpage}
+\end{document}
