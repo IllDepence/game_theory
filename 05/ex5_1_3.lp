@@ -1,0 +1,15 @@
+min: ;
+ar > 0;
+as > 0;
+at > 0;
+br > 0;
+bs > 0;
+bt > 0;
+ar + as + at = 1;
+br + bs + bt = 1;
+u -0 br -3 bs -3 bt = 0;
+u -1 br -0 bs -1 bt = 0;
+u -1 br -1 bs -0 bt = 0;
+v -0 ar -1 as -1 at = 0;
+v -1 ar -0 as -1 at = 0;
+v -3 ar -3 as -0 at = 0;
