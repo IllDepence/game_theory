@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from lpsolve55 import *
 from pprint import pprint
 
@@ -10,8 +13,6 @@ supp.remove([])
 for s1 in supp:
     for s2 in supp:
         print('================')
-        pprint(s1)
-        pprint(s2)
         num_coeffs = len(s1)+len(s2)
 
         lp = lpsolve('make_lp', 0, 12)
@@ -22,6 +23,12 @@ for s1 in supp:
         ret = lpsolve('add_constraint', lp, [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1], 'EQ', 1)
 
         for i in s1:
+            # α(p.)>0
+            coeffs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            coeffs[i+2] = 1
+            ret = lpsolve('add_constraint', lp, coeffs, 'GE', 1e-10) # get's ignored
+            ret = lpsolve('set_lowbo', lp, i+3, 1e-10)               # get's ignored
+            # u - U_1 ...
             coeffs = [1, 0] # u
             coeffs.extend([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
             for k in range(7, 12): # p2x coeffs
@@ -35,6 +42,12 @@ for s1 in supp:
                     coeffs[k] = 0
             ret = lpsolve('add_constraint', lp, coeffs, 'EQ', 0)
         for j in s2:
+            # β(p.)>0
+            coeffs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            coeffs[j+7] = 1
+            ret = lpsolve('add_constraint', lp, coeffs, 'GE', 1e-10) # get's ignored
+            ret = lpsolve('set_lowbo', lp, j+8, 1e-00)               # get's ignored
+            # v - U_2 ...
             coeffs = [0, 1] # v
             coeffs.extend([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
             for l in range(2, 7): # p2x coeffs
@@ -48,18 +61,12 @@ for s1 in supp:
                     coeffs[l] = 0
             ret = lpsolve('add_constraint', lp, coeffs, 'EQ', 0)
 
-        ret = lpsolve('set_lowbo', lp, 3, 0)
-        ret = lpsolve('set_lowbo', lp, 4, 0)
-        ret = lpsolve('set_lowbo', lp, 5, 0)
-        ret = lpsolve('set_lowbo', lp, 6, 0)
-        ret = lpsolve('set_lowbo', lp, 7, 0)
-        ret = lpsolve('set_lowbo', lp, 8, 0)
-        ret = lpsolve('set_lowbo', lp, 9, 0)
-        ret = lpsolve('set_lowbo', lp, 10, 0)
-        ret = lpsolve('set_lowbo', lp, 11, 0)
-        ret = lpsolve('set_lowbo', lp, 12, 0)
-
         lpsolve('solve', lp)
         #print lpsolve('get_objective', lp)
-        print lpsolve('get_variables', lp)[0]
-        #print lpsolve('get_constraints', lp)[0]
+        result = lpsolve('get_variables', lp)[0]
+        print('u: {0}'.format(result[0]))
+        print('v: {0}'.format(result[1]))
+        for i in s1:
+            print('α(p{0}): {1}'.format(i+1, result[i+2]))
+        for j in s2:
+            print('β(p{0}): {1}'.format(j+1, result[j+7]))
