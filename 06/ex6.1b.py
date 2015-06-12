@@ -18,28 +18,20 @@ for s1 in supp:
         lpsolve('set_verbose', lp, IMPORTANT)
 
         # u v p11 p12 p13 p14 p15 p21 p22 p23 p24 p25
-
         ret = lpsolve('set_obj_fn', lp, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
         ret = lpsolve('add_constraint', lp, [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], 'EQ', 1)
         ret = lpsolve('add_constraint', lp, [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1], 'EQ', 1)
 
-        # u - U_1 ... (defaults)
-        for x in range(1, 6):
+        # p11 - p15
+        for i in range(0, 5):
+            # u - U_1 ... (defaults)
             coeffs = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             for y in range(1, 6):
+                x = i+1
                 if not x == y:
                     coeffs[y+6] = -x
                 ret = lpsolve('add_constraint', lp, coeffs, 'GE', 0)
-        # v - U_2 ... (defaults)
-        for x in range(1, 6):
-            coeffs = [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            for y in range(1, 6):
-                if not x == y:
-                    coeffs[y+1] = -x
-                ret = lpsolve('add_constraint', lp, coeffs, 'GE', 0)
-
-        # support set specific
-        for i in range(0, 5):
+            # support set specific
             if i in s1:
                 # u - U_1 ...
                 coeffs = [1, 0] # u
@@ -53,15 +45,22 @@ for s1 in supp:
                             coeffs[k] = -(i+1)
                     else:
                         coeffs[k] = 0
-                #print('coeffs p1:')
-                #pprint(coeffs)
                 ret = lpsolve('add_constraint', lp, coeffs, 'EQ', 0)
             else:
                 # α(p.) = 0
                 coeffs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 coeffs[i+2] = 1
                 ret = lpsolve('add_constraint', lp, coeffs, 'EQ', 0)
+        # p21 - p25
         for j in range(0, 5):
+            # v - U_2 ... (defaults)
+            coeffs = [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            for y in range(1, 6):
+                x = j+1
+                if not x == y:
+                    coeffs[y+1] = -x
+                ret = lpsolve('add_constraint', lp, coeffs, 'GE', 0)
+            # support set specific
             if j in s2:
                 # v - U_2 ...
                 coeffs = [0, 1] # v
@@ -75,8 +74,6 @@ for s1 in supp:
                             coeffs[l] = -(j+1)
                     else:
                         coeffs[l] = 0
-                #print('coeffs p2:')
-                #pprint(coeffs)
                 ret = lpsolve('add_constraint', lp, coeffs, 'EQ', 0)
             else:
                 # β(p.) = 0
