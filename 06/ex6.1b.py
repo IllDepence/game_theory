@@ -18,25 +18,29 @@ for s1 in supp:
         lpsolve('set_verbose', lp, IMPORTANT)
 
         # u v p11 p12 p13 p14 p15 p21 p22 p23 p24 p25
-        ret = lpsolve('add_constraint', lp, [1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1], 'GE', 0)
-        ret = lpsolve('add_constraint', lp, [1, 0, 0, 0, 0, 0, 0, -2, 0, -2, -2, -2], 'GE', 0)
-        ret = lpsolve('add_constraint', lp, [1, 0, 0, 0, 0, 0, 0, -3, -3, 0, -3, -3], 'GE', 0)
-        ret = lpsolve('add_constraint', lp, [1, 0, 0, 0, 0, 0, 0, -4, -4, -4, 0, -4], 'GE', 0)
-        ret = lpsolve('add_constraint', lp, [1, 0, 0, 0, 0, 0, 0, -5, -5, -5, -5, 0], 'GE', 0)
-        ret = lpsolve('add_constraint', lp, [0, 1, 0, -1, -1, -1, -1, 0, 0, 0, 0, 0], 'GE', 0)
-        ret = lpsolve('add_constraint', lp, [0, 1, -2, 0, -2, -2, -2, 0, 0, 0, 0, 0], 'GE', 0)
-        ret = lpsolve('add_constraint', lp, [0, 1, -3, -3, 0, -3, -3, 0, 0, 0, 0, 0], 'GE', 0)
-        ret = lpsolve('add_constraint', lp, [0, 1, -4, -4, -4, 0, -4, 0, 0, 0, 0, 0], 'GE', 0)
-        ret = lpsolve('add_constraint', lp, [0, 1, -5, -5, -5, -5, 0, 0, 0, 0, 0, 0], 'GE', 0)
 
         ret = lpsolve('set_obj_fn', lp, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
         ret = lpsolve('add_constraint', lp, [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], 'EQ', 1)
         ret = lpsolve('add_constraint', lp, [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1], 'EQ', 1)
 
+        # u - U_1 ... (defaults)
+        for x in range(1, 6):
+            coeffs = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            for y in range(1, 6):
+                if not x == y:
+                    coeffs[y+6] = -x
+                ret = lpsolve('add_constraint', lp, coeffs, 'GE', 0)
+        # v - U_2 ... (defaults)
+        for x in range(1, 6):
+            coeffs = [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            for y in range(1, 6):
+                if not x == y:
+                    coeffs[y+1] = -x
+                ret = lpsolve('add_constraint', lp, coeffs, 'GE', 0)
+
+        # support set specific
         for i in range(0, 5):
             if i in s1:
-                # α(p.)>=0
-                ret = lpsolve('set_lowbo', lp, i+3, 0)
                 # u - U_1 ...
                 coeffs = [1, 0] # u
                 coeffs.extend([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
@@ -53,13 +57,12 @@ for s1 in supp:
                 #pprint(coeffs)
                 ret = lpsolve('add_constraint', lp, coeffs, 'EQ', 0)
             else:
+                # α(p.) = 0
                 coeffs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 coeffs[i+2] = 1
                 ret = lpsolve('add_constraint', lp, coeffs, 'EQ', 0)
         for j in range(0, 5):
             if j in s2:
-                # β(p.)>=0
-                ret = lpsolve('set_lowbo', lp, j+8, 0)
                 # v - U_2 ...
                 coeffs = [0, 1] # v
                 coeffs.extend([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
@@ -76,6 +79,7 @@ for s1 in supp:
                 #pprint(coeffs)
                 ret = lpsolve('add_constraint', lp, coeffs, 'EQ', 0)
             else:
+                # β(p.) = 0
                 coeffs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 coeffs[j+7] = 1
                 ret = lpsolve('add_constraint', lp, coeffs, 'EQ', 0)
